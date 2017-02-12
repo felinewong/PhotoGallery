@@ -1,5 +1,5 @@
 require('normalize.css/normalize.css');
-require('styles/App.scss');
+require('styles/App.css');
 
 import React from 'react';
 
@@ -31,6 +31,20 @@ function get30DegRandom () {
 }
 
 var ImgFigure = React.createClass({
+    /*
+     * imgFigure的点击处理函数
+     */
+    handleClick: function (e) {
+        if(this.props.arrange.isCenter){
+            this.props.inverse();
+        } else {
+          this.props.center();
+        } 
+
+        e.stopPropagation();
+        e.preventDefault();
+    },
+    
     render: function(){
 
         var styleObj = {};
@@ -40,13 +54,32 @@ var ImgFigure = React.createClass({
           styleObj = this.props.arrange.pos;
         }
 
+        //如果图片的旋转角度不为0，添加旋转角度
+        if(this.props.arrange.rotate){
+          (['-moz-','-ms-','webkit','']).forEach(function (value) {
+              styleObj[value + 'transform'] = 'rotate(' + this.props.arrange.rotate
+              + 'deg)';
+          }.bind(this));
+        }
+
+        var imgFigureClassName = 'img-figure';
+        imgFigureClassName += this.props.arrange.isInverse ? ' isInverse' : '';
+        //imgFigureClassName = ' isInverse';
+
+
         return(
-          <figure className="img-figure" ref="figure" style={styleObj} >
+          <figure className={imgFigureClassName} ref="figure" style={styleObj} 
+          onClick={this.handleClick}>
               <img  src={this.props.data.imageURL} 
                   alt={this.props.data.title}
               />
               <figcaption>
                   <h2 className="img-title">{this.props.data.title}</h2>
+                  <div className="img-back" onClick={this.handleClick}>
+                      <p>
+                        {this.props.data.desc}
+                      </p>
+                  </div>
               </figcaption>
           </figure>
         );
@@ -98,7 +131,7 @@ var GalleryByReactApp = React.createClass({
       hPosRangeLeftSecX = hPosRange.leftSecX,
       hPosRangeRightSecX = hPosRange.rightSecX,
       hPosRangeY = hPosRange.y,
-      hPosRangeTopY = vPosRange.topY,
+      vPosRangeTopY = vPosRange.topY,
       vPosRangeX = vPosRange.x,
 
       imgsArrangeTopArr = [],
@@ -162,6 +195,17 @@ var GalleryByReactApp = React.createClass({
       });
 
 
+  },
+  /*
+   * 利用 rearrange函数， 居中对应的index的图片
+   * @param index，需要被居中的图片对应的图片信息数组的index值
+   * @return {Function}
+   * 
+   */
+  center: function (index) {
+    return function ( ) {
+      this.rearrange(index);
+    }.bind(this);
   },
 
   getInitialState: function(){
@@ -231,7 +275,8 @@ var GalleryByReactApp = React.createClass({
 				};
 			}
 
-			imgFigures.push(<ImgFigure data={value} ref={'imgFigure' + index} key = {index} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)} />);
+			imgFigures.push(<ImgFigure data={value} ref={'imgFigure' + index} key = {index} arrange={this.state.imgsArrangeArr[index]} 
+      inverse={this.inverse(index)} center={this.center(index)} />);
 
 			
 		}.bind(this));
