@@ -27,7 +27,7 @@ html, body{
 .stage {
     position: relative;
     width: 100%;
-    height: 900px;
+    height: 680px;
 }
 /* stage  --  end */
 
@@ -50,7 +50,7 @@ html, body{
         width: 320px;
         height: 360px;
         margin: 0;
-        padding: 40px;
+        padding: 30px;
 
         background-color: #fff;
         box-sizing: border-box;
@@ -58,11 +58,12 @@ html, body{
 
         transform-origin: 0 50% 0;
         transform-style: preserve-3d;
-        transition: transform .6s ease-in-out,left .6s ease-in-out, top .6s ease-in-out;   
+        transition: transform .6s ease-in-out,left .6s ease-in-out, top .6s ease-in-out,
+                    width .6s ease-in-out,height .6s ease-in-out;   
 }
 
 .isInverse {
-    transform: translate(320px) rotateY(180deg);
+    transform: translate(460px) rotateY(180deg);
 }
 
 figcaption {
@@ -72,12 +73,12 @@ figcaption {
 .img-title{
     margin: 20px 0 0 0;
     color: #a7a0a2;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .img-sec .img-figure img{
-  width: 240px;
-  height: 240px;
+  width: 100%;
+  height: 90%;
 }
 
 .img-back{
@@ -104,6 +105,8 @@ figcaption {
         /*translateZ(1px) 是为了解决Safari 的bug*/
         backface-visibility: hidden;
 }
+
+
 
 /* image  --  end */
 
@@ -140,7 +143,7 @@ figcaption {
         transform: scale(1);   
 }    
 
-.controller-unit::after{
+.is-center::after{
     color: #fff;
     font-family: "icons-turn-arrow";
     font-size: 120%;
@@ -150,7 +153,7 @@ figcaption {
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: grayscale;
 } 
-.controller-unit .is-inverse {
+.is-inverse {
     background-color: #555;
 
     transform: rotateY(180deg);

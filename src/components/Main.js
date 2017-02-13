@@ -64,10 +64,13 @@ var ImgFigure = React.createClass({
 
         if(this.props.arrange.isCenter){
            styleObj.zIndex = 11;
+           styleObj.height = '480px';
+           styleObj.width = '460px';
         }
 
         var imgFigureClassName = 'img-figure';
         imgFigureClassName += this.props.arrange.isInverse ? ' isInverse' : '';
+        imgFigureClassName += this.props.arrange.isCenter ? ' isScale' : '';
         //imgFigureClassName = ' isInverse';
 
         return(
@@ -265,8 +268,8 @@ var GalleryByReactApp = React.createClass({
 
     //计算中心图片的位置
     this.Constant.centerPos = {
-      left: halfStageW - halfImgW,
-      top:  halfStageH - halfImgH
+      left: halfStageW - halfImgW - 70,
+      top:  halfStageH - halfImgH - 50
     };
 
     //计算左侧右侧区域图片排布位置的取值范围
