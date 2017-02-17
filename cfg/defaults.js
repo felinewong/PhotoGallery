@@ -50,7 +50,7 @@ function getDefaultModules() {
       },
       {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=8192'
+        loader: 'url-loader?limit=8192'  //当小于这个大小 转化为base64
       },
       {
         test: /\.(mp4|ogg|svg)$/,
