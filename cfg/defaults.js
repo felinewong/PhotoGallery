@@ -8,6 +8,7 @@
 
 const path = require('path');
 const srcPath = path.join(__dirname, '/../src');
+const modulePath = path.join(__dirname, '/../node_modules');
 const dfltPort = 8000;
 
 /**
@@ -62,7 +63,7 @@ function getDefaultModules() {
 
 module.exports = {
   srcPath: srcPath,
-  publicPath: './assets/',
+  publicPath: '/assets/',
   port: dfltPort,
   getDefaultModules: getDefaultModules
 };
